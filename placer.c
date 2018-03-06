@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:40:44 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/06 18:43:42 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/06 21:28:13 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int touch_one(t_infs *infs, int y, int x)
 		while (j < infs->tetw)
 		{
 			if ((infs->tet)[i][j] == '*'
-			&& (infs->map)[y + i][x + j] == infs->mark)
+			&& (((infs->map)[y + i][x + j] == infs->mark) || (infs->map)[y + i][x + j] == ft_tolower(infs->mark)))
 			{
 				touchs++;
 			}
@@ -45,6 +45,8 @@ int touch_one(t_infs *infs, int y, int x)
 		}
 		i++;
 	}
+	if (touchs == 1)
+		ft_fprintf(2, "PLACABLE A %d %d, %d touches %c\n",y, x, touchs, infs->mark);
 	return ((touchs == 1) ? 1 : 0);
 }
 

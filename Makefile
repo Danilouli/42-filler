@@ -6,7 +6,7 @@
 #    By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 16:28:01 by schmurz           #+#    #+#              #
-#    Updated: 2018/03/06 18:16:36 by dsaadia          ###   ########.fr        #
+#    Updated: 2018/03/06 21:33:02 by dsaadia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBNAME = libft.a
 INCLUDES = ./includes
 EXEC = dsaadia.filler
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 SRCDIR = ./
 SRCFILES = filler.c placer.c reader.c play.c
 SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
