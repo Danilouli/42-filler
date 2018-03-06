@@ -6,13 +6,13 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:32:41 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/06 12:17:32 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/06 19:03:34 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static init_infs(t_infs *infs)
+static void init_infs(t_infs *infs)
 {
   infs->pnum = 0;
   infs->maph = 0;
@@ -30,14 +30,15 @@ static init_infs(t_infs *infs)
 int main(void)
 {
   t_infs infs;
+	char *l;
 
   init_infs(&infs);
   read_infos(&infs);
-  while (1)
-  {
-    read_map_tet(&infs);
-    if (!play(&infs))
-      break ;
-  }
-  return (0);
+	while(get_next_line(0, &l) > 0)
+	{
+		read_map_tet(&infs);
+		if(!play(&infs))
+			return (0);
+	}
+	return (0);
 }

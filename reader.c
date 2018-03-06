@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:31:48 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/06 12:17:09 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/06 18:31:23 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void read_infos(t_infs *infs)
   {
     infs->pnum = ft_atoi(line + 10);
     infs->mark = (infs->pnum == 1) ? 'O' : 'X';
-    infs->mark = (infs->pnum == 1) ? 'X' : 'O';
-    free(line);
+    infs->enmark = (infs->pnum == 1) ? 'X' : 'O';
+    // free(line);
   }
-  if (get_next_line(0 &line) > 0)
+  if (get_next_line(0, &line) > 0)
   {
     line += 8;
     infs->maph = ft_atoi(line);
@@ -31,7 +31,7 @@ void read_infos(t_infs *infs)
       line++;
     line++;
     infs->mapw = ft_atoi(line);
-    free(line);
+    // free(line);
   }
 }
 
@@ -46,15 +46,16 @@ void read_tet(t_infs *infs)
   if (get_next_line(0, &line) > 0)
   {
     infs->teth = ft_atoi(line + 6);
+		line = line + 6;
     while (*line != ' ')
       line++;
-    infs->teth = ft_atoi(line + 1);
-    free(line);
+    infs->tetw = ft_atoi(line + 1);
+    // free(line);
   }
-  while (get_next_line(0, &line) > 0 && i <= infs->teth)
+  while (i <= infs->teth && get_next_line(0, &line) > 0)
   {
     tetstr = ft_strjoin(tetstr, line);
-    free(line);
+    // free(line);
     tetstr = ft_strjoin(tetstr, " ");
     i++;
   }
@@ -71,16 +72,19 @@ void read_map(t_infs *infs)
 
   i = 1;
   mapstr = "\0";
-  while (get_next_line(0, &line) > 0 && i <= infs->maph)
+  while (i <= infs->maph && get_next_line(0, &line) > 0)
   {
-    mapstr = ft_strjoin(mapstr, (line + 4));
-    free(line);
-    mapstr = ft_strjoin(mapstr, " ");
-    i++;
+		if (!ft_isdigit(*(line + 4)))
+		{
+			mapstr = ft_strjoin(mapstr, (line + 4));
+			// free(line);
+			mapstr = ft_strjoin(mapstr, " ");
+			i++;
+		}
   }
   infs->map = ft_strsplit(mapstr, ' ');
-  if (*mapstr)
-    free(mapstr);
+	if (*mapstr)
+	  free(mapstr);
 }
 
 void read_map_tet(t_infs *infs)

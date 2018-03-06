@@ -6,7 +6,7 @@
 #    By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 16:28:01 by schmurz           #+#    #+#              #
-#    Updated: 2018/03/02 13:40:30 by schmurz          ###   ########.fr        #
+#    Updated: 2018/03/06 18:16:36 by dsaadia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,46 +24,35 @@ LIBDIR = ./libft
 LIBS = -lft
 LIBNAME = libft.a
 INCLUDES = ./includes
-CHECKER = checker
-PUSH_SWAP = push_swap
+EXEC = dsaadia.filler
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror -Iincludes -fsanitize=address
 SRCDIR = ./
-SRCFILES = check_input.c checker_operations.c push_swap_init.c verificators.c \
-						extract_max_tab.c last_dist_and_cppile.c visualizator.c \
-						calc_dists.c checker_operations2.c verificators2.c
-CHECKER_FILES = $(SRCFILES) checker.c
-PUSH_SWAP_FILES = $(SRCFILES) push_swap.c
-CHECKER_SRC = $(subst ${space}, $(SRCDIR), $(CHECKER_FILES))
-PUSH_SWAP_SRC = $(subst ${space}, $(SRCDIR), $(PUSH_SWAP_FILES))
-CHECKER_OBJ = $(CHECKER_SRC:.c=.o)
-PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:.c=.o)
+SRCFILES = filler.c placer.c reader.c play.c
+SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
+OBJ = $(SRC:.c=.o)
 
-all: $(LIBNAME) $(CHECKER) $(PUSH_SWAP)
+all: $(LIBNAME) $(EXEC)
 		@printf "%b" "$(OK_COLOR)Finished : OK$(NO_COLOR)\n"
 
-$(CHECKER): $(CHECKER_OBJ)
+$(EXEC): $(OBJ)
 						@printf "%b" "$(COM_COLOR)Compiling : $(OBJ_COLOR)$(@)$(NO_COLOR)\n"
-						@$(CC) -o $(CHECKER) -L$(LIBDIR) $(LIBS) $(CFLAGS) $(CHECKER_OBJ)
-
-$(PUSH_SWAP): $(PUSH_SWAP_OBJ)
-							@printf "%b" "$(COM_COLOR)Compiling : $(OBJ_COLOR)$(@)$(NO_COLOR)\n"
-							@$(CC) -o $(PUSH_SWAP) -L$(LIBDIR) $(LIBS) $(CFLAGS) $(PUSH_SWAP_OBJ)
+						@$(CC) -o $(EXEC) -L$(LIBDIR) $(LIBS) $(CFLAGS) $(OBJ)
 
 $(LIBNAME):
 					@printf "%b" "$(COM_COLOR)Compiling : $(OBJ_COLOR)$(@)$(NO_COLOR)\n"
 					@make -C $(LIBDIR)
 
 clean:
-	@rm -f $(CHECKER_OBJ) $(PUSH_SWAP_OBJ)
+	@rm -f $(OBJ)
 	@make clean -C $(LIBDIR)
 	@printf "%b" "$(WARN_COLOR)Cleaned : All .o file are annihilated$(NO_COLOR)\n"
 
 fclean: clean
-	@rm -f $(CHECKER) $(PUSH_SWAP)
+	@rm -f $(EXEC)
 	@make fclean -C $(LIBDIR)
 	@printf "%b" "$(WARN_COLOR)Fcleaned : Still there remains some ashes...$(NO_COLOR)\n"
 
 re: fclean all
 
-.SILENT: $(PUSH_SWAP_OBJ) $(CHECKER_OBJ)
+.SILENT: $(OBJ)
