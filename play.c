@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/06 21:32:04 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/07 08:26:09 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ int play(t_infs *infs)
 		return (0);
 	their_moves = get_their_moves(infs);
 	choice = min_of_mins(their_moves, our_moves);
-	ft_fprintf(2, "---------CHOIX %d %d touch %d\n",choice.y, choice.x, touch_one(infs, choice.y, choice.x));
+	// ft_fprintf(2, "---------CHOIX %d %d touch %d\n",choice.y, choice.x, touch_one(infs, choice.y, choice.x));
 	ft_printf("%d %d\n",choice.y, choice.x);
+	ft_free_all(2, our_moves.vals, their_moves.vals);
 	return(1);
 }
