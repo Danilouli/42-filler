@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:40:44 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 08:28:35 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/07 18:12:06 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int good_point(t_infs *infs, int y, int x)
 	return (0 <= y && y < infs->maph && 0 <= x && x < infs->mapw);
 }
 
-int touch_one(t_infs *infs, int y, int x)
+int touch_one(t_infs *infs, int y, int x, t_point *point)
 {
 	int i;
 	int j;
@@ -34,6 +34,11 @@ int touch_one(t_infs *infs, int y, int x)
 			&& (((infs->map)[y + i][x + j] == infs->mark) || (infs->map)[y + i][x + j] == ft_tolower(infs->mark)))
 			{
 				touchs++;
+				if (touchs == 1)
+				{
+					point->ay = y + i;
+					point->ax = x + j;
+				}
 			}
 			if ((infs->tet)[i][j] == '*'
 		 	&& ((infs->map)[y + i][x + j] == infs->enmark
@@ -50,12 +55,16 @@ int touch_one(t_infs *infs, int y, int x)
 	return ((touchs == 1) ? 1 : 0);
 }
 
-int	is_placable(t_infs *infs, int y, int x)
+int	is_placable(t_infs *infs, int y, int x, t_point *point)
 {
 	if (infs->mapw - x >= infs->tetw && infs->maph - y >= infs->teth)
 	{
-		if (touch_one(infs, y, x))
+		if (touch_one(infs, y, x, point))
+		{
+			point->y = y;
+			point->x = x;
 			return (1);
+		}
 	}
 	return (0);
 }

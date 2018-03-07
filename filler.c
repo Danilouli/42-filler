@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:32:41 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/06 20:48:50 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/07 21:04:27 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ static void init_infs(t_infs *infs)
   infs->map = 0;
   infs->teth = 0;
   infs->tetw = 0;
-  infs->locx = 0;
-  infs->locy = 0;
+  (infs->loc).x = 0;
+	(infs->loc).y = 0;
   infs->tet = 0;
+	infs->strategy = 0;
+	infs->direction = -1;
+	infs->dirlen = 0;
 }
 
 int main(void)
@@ -36,6 +39,7 @@ int main(void)
   read_infos(&infs);
 	while(get_next_line(0, &l) > 0)
 	{
+		infs.strategy = !(infs.strategy);
 		read_map_tet(&infs);
 		if(!play(&infs))
 			return (0);

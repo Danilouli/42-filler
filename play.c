@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 08:26:09 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/07 21:59:03 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static t_points get_our_moves(t_infs *infs)
 		j = 0;
 		while (j < infs->mapw)
 		{
-			if (is_placable(infs, i, j))
+			if (is_placable(infs, i, j, &point))
 			{
-				point.y = i;
-				point.x = j;
+				// point.y = i;
+				// point.x = j;
 				ret.vals[ret.len] = point;
 				ret.len = ret.len + 1;
 			}
@@ -74,69 +74,36 @@ static t_points get_their_moves(t_infs *infs)
 	return (ret);
 }
 
-static int dist(t_point p1, t_point p2)
-{
-	return ((p1.y - p2.y)*(p1.y - p2.y) + (p1.x - p2.x)*(p1.x - p2.x));
-}
-
-static int min_dist_to_en(t_points their_moves, t_point we)
-{
-	int i;
-	int min;
-	int d;
-
-	i = 0;
-	if (their_moves.len == 0)
-		return (0);
-	min = 2147483647;
-	d = 0;
-	while (i < their_moves.len)
-	{
-		d = dist(their_moves.vals[i], we);
-		min = (d <= min) ? d : min;
-		i++;
-	}
-	return (min);
-}
-
-static t_point min_of_mins(t_points their_moves, t_points our_moves)
-{
-	int i;
-	int min;
-	t_point ret;
-	int k;
-
-	min = 2147483647;
-	ret.y = -1;
-	ret.x = -1;
-	i = 0;
-	k = 0;
-	while (i < our_moves.len)
-	{
-		if ((k = min_dist_to_en(their_moves, our_moves.vals[i])) < min)
-		{
-			ret = our_moves.vals[i];
-			min = k;
-		}
-		i++;
-	}
-	return (ret);
-}
-
-
 int play(t_infs *infs)
 {
 	t_points our_moves;
 	t_points their_moves;
 	t_point choice;
+	static int spread_over = 0;
 
 	our_moves = get_our_moves(infs);
 	if (our_moves.len == 0)
 		return (0);
 	their_moves = get_their_moves(infs);
-	choice = min_of_mins(their_moves, our_moves);
-	// ft_fprintf(2, "---------CHOIX %d %d touch %d\n",choice.y, choice.x, touch_one(infs, choice.y, choice.x));
+	// if (!spread_over)
+	// {
+	// 	ft_fprintf(2, "ou on est (%d %d), dist to spread %d, la direction %d, long de la dir %d\n",
+	// 	(infs->loc).x,(infs->loc).y,spread_dist(infs, infs->loc),infs->direction,infs->dirlen);
+	// 	choice = to_spread(infs, our_moves);
+	// }
+	if (spread_dist(infs, infs->loc) > (infs->dirlen)*8/10)
+		spread_over = 1;
+	if (!(infs->strategy) && !spread_over)
+	{
+		choice = to_spread(infs, our_moves);
+	}
+	else
+		choice = (infs->strategy) ? minpt_of_mins(their_moves, our_moves) : kill_enemy(infs, our_moves);
+	if (choice.y < 0 || choice.x < 0)
+		return (0);
+	(infs->loc).x = choice.x;
+	(infs->loc).y = choice.y;
 	ft_printf("%d %d\n",choice.y, choice.x);
-	ft_free_all(2, our_moves.vals, their_moves.vals);
+	ft_free_all(4, our_moves.vals, their_moves.vals, infs->map, infs->tet);
 	return(1);
 }
