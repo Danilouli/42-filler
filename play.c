@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 21:59:03 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/08 16:43:11 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static t_points get_our_moves(t_infs *infs)
 		{
 			if (is_placable(infs, i, j, &point))
 			{
-				// point.y = i;
-				// point.x = j;
 				ret.vals[ret.len] = point;
 				ret.len = ret.len + 1;
 			}
@@ -74,36 +72,42 @@ static t_points get_their_moves(t_infs *infs)
 	return (ret);
 }
 
-int play(t_infs *infs)
+void play(t_infs *infs)
 {
 	t_points our_moves;
 	t_points their_moves;
 	t_point choice;
-	static int spread_over = 0;
+	static int spread_over = 1;
+	static int spreadr_over = 0;
 
 	our_moves = get_our_moves(infs);
 	if (our_moves.len == 0)
-		return (0);
-	their_moves = get_their_moves(infs);
-	// if (!spread_over)
-	// {
-	// 	ft_fprintf(2, "ou on est (%d %d), dist to spread %d, la direction %d, long de la dir %d\n",
-	// 	(infs->loc).x,(infs->loc).y,spread_dist(infs, infs->loc),infs->direction,infs->dirlen);
-	// 	choice = to_spread(infs, our_moves);
-	// }
-	if (spread_dist(infs, infs->loc) > (infs->dirlen)*8/10)
-		spread_over = 1;
-	if (!(infs->strategy) && !spread_over)
 	{
-		choice = to_spread(infs, our_moves);
+		ft_printf("0 0\n");
+		return ;
 	}
+	their_moves = get_their_moves(infs);
+	if (dist_to_rdir(infs) <= 0)
+	{
+		spread_over = 0;
+		spreadr_over = 1;
+	}
+	if (dist_to_dir(infs) <= 0)
+		spread_over = 1;
+	if (!spread_over)
+		choice = to_spread(infs, our_moves);
+	if (!spreadr_over)
+		choice = to_spreadr(infs, our_moves);
+	if ((spread_over && spreadr_over) || (infs->maph <= 25 && infs->mapw <=25))
+		choice = (infs->strategy && infs->maph <= 25 && infs->mapw <=25) ? kill_enemy(infs, our_moves) :
+		minpt_of_mins(their_moves, our_moves);
 	else
-		choice = (infs->strategy) ? minpt_of_mins(their_moves, our_moves) : kill_enemy(infs, our_moves);
-	if (choice.y < 0 || choice.x < 0)
-		return (0);
-	(infs->loc).x = choice.x;
-	(infs->loc).y = choice.y;
+	{
+		(infs->loc).x = choice.x;
+		(infs->loc).y = choice.y;
+	}
 	ft_printf("%d %d\n",choice.y, choice.x);
+	free_strtab(infs->map);
+	free_strtab(infs->tet);
 	ft_free_all(4, our_moves.vals, their_moves.vals, infs->map, infs->tet);
-	return(1);
 }

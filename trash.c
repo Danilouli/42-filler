@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:17:50 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 20:14:16 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/08 16:34:06 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,3 +160,20 @@ t_point max_dist_to_frame(t_infs *infs, t_points our_moves)
 	}
 	return (ret);
 }
+
+
+// int fd = open("tests", O_WRONLY|O_APPEND);
+// i = 0;
+// int j = 0;
+// ft_fprintf(fd, "teth %d tetw %d\n",infs->teth, infs->tetw);
+// while (i < infs->teth)
+// {
+// 	j = 0;
+// 	while (j < infs->tetw)
+// 	{
+// 		ft_fprintf(fd, "%c",infs->tet[i][j]);
+// 		j++;
+// 	}
+// 	ft_fprintf(fd, "\n");
+// 	i++;
+// }

@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:20:47 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/07 21:54:35 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/08 15:38:43 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void read_map_tet(t_infs *infs);
 int touch_one(t_infs *infs, int y, int x, t_point *point);
 int	is_placable(t_infs *infs, int y, int x, t_point *point);
 int is_enfree(t_infs *infs, int i, int j);
-int play(t_infs *infs);
+void play(t_infs *infs);
 int dist(t_point p1, t_point p2);
 int min_dist_to_en(t_points their_moves, t_point we);
 t_point minpt_of_mins(t_points their_moves, t_points our_moves);
@@ -63,5 +63,11 @@ t_point kill_enemy(t_infs *in, t_points our_moves);
 t_point to_spread(t_infs *in, t_points our_moves);
 t_point to_spreadm(t_infs *in, t_points our_moves);
 int spread_dist(t_infs *in, t_point m);
+int spreadr_dist(t_infs *in, t_point m);
+t_point to_spreadr(t_infs *in, t_points our_moves);
+int dist_to_dir(t_infs *in);
+int dist_to_rdir(t_infs *in);
+void print_tout(t_infs *infs, int y, int x);
+void free_strtab(char **strtab);
 
 #endif

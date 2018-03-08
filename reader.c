@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:31:48 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/07 21:47:31 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/08 16:34:12 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void read_infos(t_infs *infs)
     infs->pnum = ft_atoi(line + 10);
     infs->mark = (infs->pnum == 1) ? 'O' : 'X';
     infs->enmark = (infs->pnum == 1) ? 'X' : 'O';
-    free(line);
+    ft_strdel(&line);
   }
   if (get_next_line(0, &line) > 0)
   {
@@ -33,7 +33,7 @@ void read_infos(t_infs *infs)
       line++;
     line++;
     infs->mapw = ft_atoi(line);
-    free(k);
+    ft_strdel(&k);
   }
 }
 
@@ -48,23 +48,26 @@ void read_tet(t_infs *infs)
   if (get_next_line(0, &line) > 0)
   {
 		tetstr = line;
-    infs->teth = ft_atoi(line + 6);
-		line = line + 6;
+    while (!ft_isdigit(*line))
+      line++;
+    infs->teth = ft_atoi(line);
     while (*line != ' ')
       line++;
-    infs->tetw = ft_atoi(line + 1);
-    free(tetstr);
+    while (!ft_isdigit(*line))
+      line++;
+    infs->tetw = ft_atoi(line);
+    ft_strdel(&tetstr);
   }
   while (i <= infs->teth && get_next_line(0, &line) > 0)
   {
     tetstr = ft_strjoin(tetstr, line);
-    free(line);
-    tetstr = ft_strjoin(tetstr, " ");
+    ft_strdel(&line);
+    tetstr = ft_strjoin(tetstr, "H");
     i++;
   }
-  infs->tet = ft_strsplit(tetstr, ' ');
+  infs->tet = ft_strsplit(tetstr, 'H');
   if (*tetstr)
-    free(tetstr);
+    ft_strdel(&tetstr);
 }
 
 void read_map(t_infs *infs)
@@ -80,14 +83,14 @@ void read_map(t_infs *infs)
 		if (!ft_isdigit(*(line + 4)))
 		{
 			mapstr = ft_strjoin(mapstr, (line + 4));
-			free(line);
-			mapstr = ft_strjoin(mapstr, " ");
+			ft_strdel(&line);
+			mapstr = ft_strjoin(mapstr, "\n");
 			i++;
 		}
   }
-  infs->map = ft_strsplit(mapstr, ' ');
+  infs->map = ft_strsplit(mapstr, '\n');
 	if (*mapstr)
-	  free(mapstr);
+	  ft_strdel(&mapstr);
 }
 
 void where_am_i(t_infs *in)
@@ -123,8 +126,6 @@ void where_to_spread(t_infs *infs)
 	d[1] = ABS(infs->mapw - (infs->loc).x);
 	d[2] = ABS(infs->maph - (infs->loc).y);
 	d[3] = ABS((infs->loc).x);
-	// ft_fprintf(2, "ou on est (%d %d), d0 %d, d1 %d, d2 %d d3 %d\n",(infs->loc).y,(infs->loc).x,
-	// d[0],d[1],d[2],d[3]);
 	max = ft_max_nums(4, d[0], d[1], d[2], d[3]);
 	if (d[0] == max)
 		infs->direction = 0;

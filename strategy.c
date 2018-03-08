@@ -6,16 +6,11 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:52:36 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 21:52:49 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/08 15:11:08 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-int dist(t_point p1, t_point p2)
-{
-	return (ABS(p1.y - p2.y) + ABS(p1.x - p2.x));
-}
 
 int min_dist_to_en(t_points their_moves, t_point we)
 {
@@ -45,8 +40,7 @@ t_point minpt_of_mins(t_points their_moves, t_points our_moves)
 	int k;
 
 	min = 2147483647;
-	ret.y = -1;
-	ret.x = -1;
+	ret = our_moves.vals[0];
 	i = 0;
 	k = 0;
 	while (i < our_moves.len)
@@ -74,8 +68,8 @@ t_point find_enemy(t_infs *in)
 	t_point ret;
 
 	i = 0;
-	ret.y = -1;
-	ret.x = -1;
+	ret.x = 0;
+	ret.y = 0;
 	while (i < in->maph)
 	{
 		j = 0;
@@ -104,8 +98,7 @@ t_point kill_enemy(t_infs *in, t_points our_moves)
 
 	en_loc = find_enemy(in);
 	min = 2147483647;
-	ret.y = -1;
-	ret.x = -1;
+	ret = our_moves.vals[0];
 	i = 0;
 	while (i < our_moves.len)
 	{
@@ -119,19 +112,6 @@ t_point kill_enemy(t_infs *in, t_points our_moves)
 	return (ret);
 }
 
-int spread_dist(t_infs *in, t_point m)
-{
-	if (in->direction == 0)
-		return (ABS(m.y));
-	if (in->direction == 1)
-		return (ABS(in->mapw - m.x));
-	if (in->direction == 2)
-		return (ABS(in->maph - m.y));
-	if (in->direction == 3)
-		return (ABS(m.x));
-	return (ABS(m.x));
-}
-
 t_point to_spread(t_infs *in, t_points our_moves)
 {
 	int i;
@@ -140,12 +120,11 @@ t_point to_spread(t_infs *in, t_points our_moves)
 	int k;
 
 	min = 2147483647;
-	ret.y = -1;
-	ret.x = -1;
+	ret = our_moves.vals[0];
 	i = 0;
 	while (i < our_moves.len)
 	{
-		if ((k = spread_dist(in, our_moves.vals[i])) < min)
+		if ((k = spread_dist(in, our_moves.vals[i])) <= min)
 		{
 			ret = our_moves.vals[i];
 			min = k;
@@ -155,23 +134,22 @@ t_point to_spread(t_infs *in, t_points our_moves)
 	return (ret);
 }
 
-t_point to_spreadm(t_infs *in, t_points our_moves)
+t_point to_spreadr(t_infs *in, t_points our_moves)
 {
 	int i;
-	int max;
+	int min;
 	t_point ret;
 	int k;
 
-	max = 0;
-	ret.y = -1;
-	ret.x = -1;
+	min = 2147483647;
+	ret = our_moves.vals[0];
 	i = 0;
 	while (i < our_moves.len)
 	{
-		if ((k = spread_dist(in, our_moves.vals[i])) > max)
+		if ((k = spreadr_dist(in, our_moves.vals[i])) < min)
 		{
 			ret = our_moves.vals[i];
-			max = k;
+			min = k;
 		}
 		i++;
 	}

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   freeer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 01:17:20 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/08 16:18:22 by schmurz          ###   ########.fr       */
+/*   Created: 2018/03/08 15:36:15 by schmurz           #+#    #+#             */
+/*   Updated: 2018/03/08 15:39:36 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "filler.h"
 
-void	ft_strdel(char **as)
+void free_strtab(char **strtab)
 {
-	if (as && *as)
-	{
-		ft_strclr(*as);
-		ft_memdel((void**)as);
-	}
+  while (*strtab)
+  {
+    ft_strdel(&(*strtab));
+    strtab++;
+  }
 }
