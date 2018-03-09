@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/09 11:36:54 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/09 12:40:19 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,17 @@ static t_points get_our_moves(t_infs *infs)
 
 	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
 	ret.len = 0;
-	i = 0;
+	i = -1;
 	point.y = 0;
 	point.x = 0;
-	while (i < infs->maph)
+	while (++i < infs->maph)
 	{
-		j = 0;
-		while (j < infs->mapw)
+		j = -1;
+		while (++j < infs->mapw)
 		{
 			if (is_placable(infs, i, j, &point))
-			{
-				ret.vals[ret.len] = point;
-				ret.len = ret.len + 1;
-			}
-			j++;
+				ret.vals[ret.len++] = point;
 		}
-		i++;
 	}
 	return (ret);
 }
@@ -50,43 +45,27 @@ static t_points get_their_moves(t_infs *infs)
 
 	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
 	ret.len = 0;
-	i = 0;
+	i = -1;
 	point.y = 0;
 	point.x = 0;
-	while (i < infs->maph)
+	while (++i < infs->maph)
 	{
-		j = 0;
-		while (j < infs->mapw)
+		j = -1;
+		while (++j < infs->mapw)
 		{
-			if (is_enfree(infs, i, j))
-			{
-				point.y = i;
-				point.x = j;
-				ret.vals[ret.len] = point;
-				ret.len = ret.len + 1;
-			}
-			j++;
+			if (is_enfree(infs, i, j) && (point.y = i) >= 0 && (point.x = j) >= 0)
+				ret.vals[ret.len++] = point;
 		}
-		i++;
 	}
 	return (ret);
 }
 
-void play(t_infs *infs)
+static t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_moves)
 {
-	t_points our_moves;
-	t_points their_moves;
-	t_point choice;
 	static int spread_over = 1;
 	static int spreadr_over = 0;
+	t_point choice;
 
-	our_moves = get_our_moves(infs);
-	if (our_moves.len == 0)
-	{
-		ft_printf("0 0\n");
-		return ;
-	}
-	their_moves = get_their_moves(infs);
 	if (dist_to_rdir(infs) <= 0)
 	{
 		spread_over = 0;
@@ -106,8 +85,25 @@ void play(t_infs *infs)
 		(infs->loc).x = choice.x;
 		(infs->loc).y = choice.y;
 	}
+	return (choice);
+}
+
+void play(t_infs *infs)
+{
+	t_points our_moves;
+	t_points their_moves;
+	t_point	choice;
+
+	our_moves = get_our_moves(infs);
+	if (our_moves.len == 0)
+	{
+		ft_printf("0 0\n");
+		return ;
+	}
+	their_moves = get_their_moves(infs);
+	choice = strategic_play(infs, our_moves, their_moves);
 	ft_printf("%d %d\n",choice.y, choice.x);
-	free_strtab(infs->map);
-	free_strtab(infs->tet);
-	ft_free_all(4, our_moves.vals, their_moves.vals, infs->map, infs->tet);
+	ft_free_strtab(infs->map);
+	ft_free_strtab(infs->tet);
+	ft_free_all(2, our_moves.vals, their_moves.vals);
 }

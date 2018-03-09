@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 18:03:32 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/03 11:08:46 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/09 11:59:18 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_strtab(char **strtab)
 	i = 0;
 	while (strtab[i])
 	{
-		free(strtab[i]);
+		ft_strdel(&(strtab[i]));
 		i++;
 	}
 	free(strtab);

@@ -6,31 +6,11 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:52:36 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/08 15:11:08 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/09 12:41:43 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-int min_dist_to_en(t_points their_moves, t_point we)
-{
-	int i;
-	int min;
-	int d;
-
-	i = 0;
-	if (their_moves.len == 0)
-		return (0);
-	min = 2147483647;
-	d = 0;
-	while (i < their_moves.len)
-	{
-		d = dist(their_moves.vals[i], we);
-		min = (d <= min) ? d : min;
-		i++;
-	}
-	return (min);
-}
 
 t_point minpt_of_mins(t_points their_moves, t_points our_moves)
 {
@@ -53,12 +33,6 @@ t_point minpt_of_mins(t_points their_moves, t_points our_moves)
 		i++;
 	}
 	return (ret);
-}
-
-int void_there(t_infs *i, int y, int x)
-{
-	return (0 <= x && x < i->mapw && 0 <= y && y < i->maph
-		&& i->map[y][x] == '.');
 }
 
 t_point find_enemy(t_infs *in)

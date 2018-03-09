@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:20:47 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/08 15:38:43 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/09 12:53:07 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef struct s_point
 {
 	int y;
 	int x;
-	int ay;
-	int ax;
 }								t_point;
 
 typedef struct s_points
@@ -47,8 +45,9 @@ typedef struct s_infs
 }             t_infs;
 
 void read_infos(t_infs *infs);
+void read_tet(t_infs *infs);
 void read_map_tet(t_infs *infs);
-int touch_one(t_infs *infs, int y, int x, t_point *point);
+int touch_one(t_infs *infs, int y, int x);
 int	is_placable(t_infs *infs, int y, int x, t_point *point);
 int is_enfree(t_infs *infs, int i, int j);
 void play(t_infs *infs);
@@ -69,5 +68,6 @@ int dist_to_dir(t_infs *in);
 int dist_to_rdir(t_infs *in);
 void print_tout(t_infs *infs, int y, int x);
 void free_strtab(char **strtab);
+int min_dist_to_en(t_points their_moves, t_point we);
 
 #endif

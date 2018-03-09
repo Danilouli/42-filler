@@ -6,7 +6,7 @@
 #    By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 16:28:01 by schmurz           #+#    #+#              #
-#    Updated: 2018/03/08 15:37:50 by schmurz          ###   ########.fr        #
+#    Updated: 2018/03/09 12:55:46 by schmurz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ EXEC = dsaadia.filler
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 SRCDIR = ./
-SRCFILES = filler.c placer.c reader.c play.c strategy.c dists.c debug.c freeer.c
+SRCFILES = filler.c placer.c reader.c play.c strategy.c dists.c reader2.c
 SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
 OBJ = $(SRC:.c=.o)
 
