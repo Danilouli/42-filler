@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:20:47 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/09 12:53:07 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/09 13:08:23 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int spreadr_dist(t_infs *in, t_point m);
 t_point to_spreadr(t_infs *in, t_points our_moves);
 int dist_to_dir(t_infs *in);
 int dist_to_rdir(t_infs *in);
-void print_tout(t_infs *infs, int y, int x);
-void free_strtab(char **strtab);
 int min_dist_to_en(t_points their_moves, t_point we);
 
 #endif
