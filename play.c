@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/09 12:40:19 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/13 15:27:04 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ static t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_m
 	}
 	if (dist_to_dir(infs) <= 0)
 		spread_over = 1;
-	if (!spread_over)
-		choice = to_spread(infs, our_moves);
-	if (!spreadr_over)
-		choice = to_spreadr(infs, our_moves);
-	if ((spread_over && spreadr_over) || (infs->maph <= 25 && infs->mapw <=25))
-		choice = (infs->strategy && infs->maph <= 25 && infs->mapw <=25) ? kill_enemy(infs, our_moves) :
+	if ((spread_over && spreadr_over))
+		choice = (infs->strategy && !((infs->maph <= 25 && infs->mapw <= 25))) ? kill_enemy(infs, our_moves) :
 		minpt_of_mins(their_moves, our_moves);
 	else
 	{
+		if (!spread_over)
+			choice = to_spread(infs, our_moves);
+		if (!spreadr_over)
+			choice = to_spreadr(infs, our_moves);
 		(infs->loc).x = choice.x;
 		(infs->loc).y = choice.y;
 	}
