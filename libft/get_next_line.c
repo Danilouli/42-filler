@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:04:26 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/03 11:16:27 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/13 19:20:18 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,22 @@ static int	read_when_line(char **line, char **kp, char *pt)
 	return (1);
 }
 
+static int	safe_return(int r, char **kp, char **line)
+{
+	int ret;
+
+	ret = when_read_over(line, kp);
+	(r == 0) ? ft_strdel(kp) : kp;
+	return (ret);
+}
+
+static int	safe_quit(char **b)
+{
+	if (*b)
+		free(*b);
+	return (-1);
+}
+
 int			get_next_line(const int fd, char **line)
 {
 	char		*b;
@@ -71,7 +87,7 @@ int			get_next_line(const int fd, char **line)
 	int			r;
 
 	if (!(b = (char*)malloc(BUFF_SIZE + 1)) || fd < 0 || (read(fd, "", 0)) < 0)
-		return (-1);
+		return (safe_quit(&b));
 	kp[fd] = (kp[fd] == 0 || kp[fd][0] == 0) ? ft_strdup("\0") : kp[fd];
 	while ((r = read(fd, b, BUFF_SIZE)))
 	{
@@ -87,5 +103,5 @@ int			get_next_line(const int fd, char **line)
 			return (-1);
 	}
 	ft_strdel(&b);
-	return (when_read_over(line, &(kp[fd])));
+	return (safe_return(r, &(kp[fd]), line));
 }
