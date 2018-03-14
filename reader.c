@@ -6,36 +6,37 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:31:48 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/09 12:49:42 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/14 17:44:49 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void read_map(t_infs *infs)
+void	read_map(t_infs *infs)
 {
-  char   *line;
-  int   i;
-  char  *mapstr;
+	char	*line;
+	int	i;
+	char	*mapstr;
 
-  i = 1;
-  mapstr = "\0";
-  while (i <= infs->maph && get_next_line(0, &line) > 0)
-  {
+	i = 1;
+	mapstr = ft_strdup("\0");
+	while (i <= infs->maph && get_next_line(0, &line) > 0)
+	{
 		if (!ft_isdigit(*(line + 4)))
 		{
-			mapstr = ft_strjoin(mapstr, (line + 4));
+			mapstr = ft_strjoindelone(&mapstr, (line + 4));
 			ft_strdel(&line);
-			mapstr = ft_strjoin(mapstr, "\n");
+			mapstr = ft_strjoindelone(&mapstr, "\n");
 			i++;
 		}
-  }
-  infs->map = ft_strsplit(mapstr, '\n');
-	if (*mapstr)
-	  ft_strdel(&mapstr);
+		else
+			ft_strdel(&line);
+	}
+	infs->map = ft_strsplit(mapstr, '\n');
+	ft_strdel(&mapstr);
 }
 
-void where_am_i(t_infs *in)
+void	where_am_i(t_infs *in)
 {
 	int i;
 	int j;
@@ -56,7 +57,7 @@ void where_am_i(t_infs *in)
 	}
 }
 
-void where_to_spread(t_infs *infs)
+void	where_to_spread(t_infs *infs)
 {
 	int d[4];
 	int max;
@@ -81,10 +82,10 @@ void where_to_spread(t_infs *infs)
 		infs->dirlen = infs->mapw;
 }
 
-void read_map_tet(t_infs *infs)
+void	read_map_tet(t_infs *infs)
 {
-  read_map(infs);
-  read_tet(infs);
+	read_map(infs);
+	read_tet(infs);
 	if (infs->direction == -1)
 		where_to_spread(infs);
 }

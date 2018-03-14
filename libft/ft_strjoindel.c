@@ -6,30 +6,29 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:59:31 by dsaadia           #+#    #+#             */
-/*   Updated: 2017/12/09 19:05:49 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/14 17:27:03 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoindel(char *s1, char *s2)
+char		*ft_strjoindel(char **s1, char **s2, int whodel)
 {
-	char	*r;
-	int		i;
-	int		j;
+	char	*str;
 
-	i = -1;
-	j = -1;
-	if (s1 == 0 || s2 == 0)
-		return (0);
-	if (!(r = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
-		return (0);
-	while (s1[++i])
-		r[i] = s1[i];
-	while (s2[++j])
-		r[i + j] = s2[j];
-	r[i + j] = 0;
-	ft_strdel(&s1);
-	ft_strdel(&s2);
-	return (r);
+	if (!(*s1) && !(*s2))
+		return (NULL);
+	if (!(*s1))
+		return (ft_strdup(*s2));
+	if (!(*s2))
+		return (ft_strdup((*s1)));
+	if (!(str = ft_strnew(ft_strlen(*s1) + ft_strlen(*s2))))
+		return (NULL);
+	ft_strcpy(str, *s1);
+	ft_strcat(str, *s2);
+	if (whodel == 1 || whodel == 3)
+		ft_strdel(s1);
+	if (whodel == 2 || whodel == 3)
+		ft_strdel(s2);
+	return (str);
 }

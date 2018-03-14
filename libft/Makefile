@@ -6,7 +6,7 @@
 #    By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 16:37:57 by dsaadia           #+#    #+#              #
-#    Updated: 2018/03/07 18:00:18 by dsaadia          ###   ########.fr        #
+#    Updated: 2018/03/14 17:29:12 by schmurz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRCFILES = ft_int_tab_cpy.c ft_astrrev.c ft_memccpy.c ft_striteri.c ft_isspacer.
 			del_pfarg.c printf_init_helpers.c get_next_line.c ft_isnumstr.c \
 			ft_in_array.c ft_swap_ints.c ft_intarr_rev.c ft_intarr_min.c \
 			ft_intarr_max.c ft_min_nums.c ft_intarr_push.c ft_free_strtab.c \
-			ft_free_all.c ft_intarr_ctint.c ft_max_nums.c
+			ft_free_all.c ft_intarr_ctint.c ft_max_nums.c ft_strjoindelone.c
 SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
 OBJ = $(SRCFILES:.c=.o)
 

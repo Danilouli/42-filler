@@ -12,12 +12,12 @@
 
 #include "filler.h"
 
-t_point minpt_of_mins(t_points their_moves, t_points our_moves)
+t_point	minpt_of_mins(t_points their_moves, t_points our_moves)
 {
-	int i;
-	int min;
-	t_point ret;
-	int k;
+	int		i;
+	int		min;
+	t_point	ret;
+	int		k;
 
 	min = 2147483647;
 	ret = our_moves.vals[0];
@@ -35,11 +35,11 @@ t_point minpt_of_mins(t_points their_moves, t_points our_moves)
 	return (ret);
 }
 
-t_point find_enemy(t_infs *in)
+t_point	find_enemy(t_infs *in)
 {
-	int i;
-	int j;
-	t_point ret;
+	int		i;
+	int		j;
+	t_point	ret;
 
 	i = 0;
 	ret.x = 0;
@@ -62,13 +62,13 @@ t_point find_enemy(t_infs *in)
 	return (ret);
 }
 
-t_point kill_enemy(t_infs *in, t_points our_moves)
+t_point	kill_enemy(t_infs *in, t_points our_moves)
 {
-	t_point en_loc;
-	int i;
-	int min;
-	t_point ret;
-	int k;
+	t_point	en_loc;
+	int		i;
+	int		min;
+	t_point	ret;
+	int		k;
 
 	en_loc = find_enemy(in);
 	min = 2147483647;
@@ -108,12 +108,12 @@ t_point to_spread(t_infs *in, t_points our_moves)
 	return (ret);
 }
 
-t_point to_spreadr(t_infs *in, t_points our_moves)
+t_point	to_spreadr(t_infs *in, t_points our_moves)
 {
-	int i;
-	int min;
-	t_point ret;
-	int k;
+	int		i;
+	int		min;
+	t_point	ret;
+	int		k;
 
 	min = 2147483647;
 	ret = our_moves.vals[0];

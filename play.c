@@ -6,18 +6,18 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/14 15:40:48 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/14 17:52:43 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static t_points get_our_moves(t_infs *infs)
+static	t_points get_our_moves(t_infs *infs)
 {
-	t_points ret;
-	int i;
-	int j;
-	t_point point;
+	t_points	ret;
+	int			i;
+	int			j;
+	t_point		point;
 
 	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
 	ret.len = 0;
@@ -36,12 +36,12 @@ static t_points get_our_moves(t_infs *infs)
 	return (ret);
 }
 
-static t_points get_their_moves(t_infs *infs)
+static	t_points get_their_moves(t_infs *infs)
 {
-	t_points ret;
-	int i;
-	int j;
-	t_point point;
+	t_points	ret;
+	int			i;
+	int			j;
+	t_point		point;
 
 	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
 	ret.len = 0;
@@ -60,11 +60,11 @@ static t_points get_their_moves(t_infs *infs)
 	return (ret);
 }
 
-static t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_moves)
+static	t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_moves)
 {
-	static int spread_over = 1;
-	static int spreadr_over = 0;
-	t_point choice;
+	static int	spread_over = 1;
+	static int	spreadr_over = 0;
+	t_point		choice;
 
 	if (dist_to_rdir(infs) <= 0)
 	{
@@ -90,17 +90,18 @@ static t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_m
 
 void play(t_infs *infs)
 {
-	t_points our_moves;
-	t_points their_moves;
-	t_point	choice;
+	t_points	our_moves;
+	t_points	their_moves;
+	t_point		choice;
 
 	our_moves = get_our_moves(infs);
+	their_moves = get_their_moves(infs);
 	if (our_moves.len == 0)
 	{
 		ft_printf("0 0\n");
+		ft_free_all(2, our_moves.vals, their_moves.vals);
 		return ;
 	}
-	their_moves = get_their_moves(infs);
 	choice = strategic_play(infs, our_moves, their_moves);
 	ft_printf("%d %d\n",choice.y, choice.x);
 	ft_free_strtab(infs->map);

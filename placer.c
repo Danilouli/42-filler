@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-int touch_one(t_infs *infs, int y, int x)
+int	touch_one(t_infs *infs, int y, int x)
 {
 	int i;
 	int j;
@@ -52,7 +52,7 @@ int	is_placable(t_infs *infs, int y, int x, t_point *point)
 	return (0);
 }
 
-int is_enfree(t_infs *infs, int i, int j)
+int	is_enfree(t_infs *infs, int i, int j)
 {
 	if((infs->map[i][j] == infs->enmark
 	|| infs->map[i][j] == ft_tolower(infs->enmark))
@@ -64,7 +64,7 @@ int is_enfree(t_infs *infs, int i, int j)
 	return (0);
 }
 
-int min_dist_to_en(t_points their_moves, t_point we)
+int	min_dist_to_en(t_points their_moves, t_point we)
 {
 	int i;
 	int min;

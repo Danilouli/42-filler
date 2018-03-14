@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 18:38:26 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/07 17:42:14 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/14 17:29:00 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoindel(char **s1, char **s2, int whodel);
+char				*ft_strjoindelone(char **s1, char *s2);
 char				*ft_strtrim(char const *s);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
