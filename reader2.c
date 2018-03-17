@@ -6,13 +6,13 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 12:49:02 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/14 17:45:11 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/17 21:08:46 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void read_infos(t_infs *infs)
+void	read_infos(t_infs *infs)
 {
 	char	*line;
 	char	*k;
@@ -30,14 +30,14 @@ void read_infos(t_infs *infs)
 		line += 8;
 		infs->maph = ft_atoi(line);
 		while (*line != ' ')
-		line++;
+			line++;
 		line++;
 		infs->mapw = ft_atoi(line);
 		ft_strdel(&k);
 	}
 }
 
-void read_hw_tet(t_infs *infs)
+void	read_hw_tet(t_infs *infs)
 {
 	char	*line;
 	char	*tmp;
@@ -57,7 +57,7 @@ void read_hw_tet(t_infs *infs)
 	}
 }
 
-void read_tet(t_infs *infs)
+void	read_tet(t_infs *infs)
 {
 	char	*line;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:40:44 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/09 12:52:49 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/17 21:04:52 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	touch_one(t_infs *infs, int y, int x)
 		j = -1;
 		while (++j < infs->tetw)
 		{
-			if ((infs->tet)[i][j] == '*' && (infs->map)[y + i][x + j] == infs->mark)
+			if ((infs->tet)[i][j] == '*'
+			&& (infs->map)[y + i][x + j] == infs->mark)
 				touchs = touchs + 1;
 			if ((infs->tet)[i][j] == '*'
-		 	&& ((infs->map)[y + i][x + j] == infs->enmark
+			&& ((infs->map)[y + i][x + j] == infs->enmark
 			|| (infs->map)[y + i][x + j] == ft_tolower(infs->enmark)))
 				return (0);
 		}
@@ -54,7 +55,7 @@ int	is_placable(t_infs *infs, int y, int x, t_point *point)
 
 int	is_enfree(t_infs *infs, int i, int j)
 {
-	if((infs->map[i][j] == infs->enmark
+	if ((infs->map[i][j] == infs->enmark
 	|| infs->map[i][j] == ft_tolower(infs->enmark))
 	&& ((j - 1 >= 0 && infs->map[i][j - 1] == '.')
 	|| (j + 1 < infs->mapw && infs->map[i][j + 1] == '.')

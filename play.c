@@ -6,21 +6,23 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:38:12 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/14 17:52:43 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/17 21:26:50 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static	t_points get_our_moves(t_infs *infs)
+static	t_points	get_our_moves(t_infs *infs)
 {
-	t_points	ret;
+	t_points	r;
 	int			i;
 	int			j;
 	t_point		point;
 
-	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
-	ret.len = 0;
+	if (!(r.vals =
+	(t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw))))
+		exit(EXIT_FAILURE);
+	r.len = 0;
 	i = -1;
 	point.y = 0;
 	point.x = 0;
@@ -30,21 +32,23 @@ static	t_points get_our_moves(t_infs *infs)
 		while (++j < infs->mapw)
 		{
 			if (is_placable(infs, i, j, &point))
-				ret.vals[ret.len++] = point;
+				r.vals[r.len++] = point;
 		}
 	}
-	return (ret);
+	return (r);
 }
 
-static	t_points get_their_moves(t_infs *infs)
+static	t_points	get_their_moves(t_infs *infs)
 {
-	t_points	ret;
+	t_points	r;
 	int			i;
 	int			j;
 	t_point		point;
 
-	ret.vals = (t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw));
-	ret.len = 0;
+	if (!(r.vals =
+	(t_point*)malloc(sizeof(t_point) * (infs->maph * infs->mapw))))
+		exit(EXIT_FAILURE);
+	r.len = 0;
 	i = -1;
 	point.y = 0;
 	point.x = 0;
@@ -53,14 +57,16 @@ static	t_points get_their_moves(t_infs *infs)
 		j = -1;
 		while (++j < infs->mapw)
 		{
-			if (is_enfree(infs, i, j) && (point.y = i) >= 0 && (point.x = j) >= 0)
-				ret.vals[ret.len++] = point;
+			if (is_enfree(infs, i, j) && (point.y = i) >= 0
+			&& (point.x = j) >= 0)
+				r.vals[r.len++] = point;
 		}
 	}
-	return (ret);
+	return (r);
 }
 
-static	t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_moves)
+static	t_point		strategic_play(t_infs *infs, t_points our_moves,
+					t_points their_moves)
 {
 	static int	spread_over = 1;
 	static int	spreadr_over = 0;
@@ -74,7 +80,8 @@ static	t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_m
 	if (dist_to_dir(infs) <= 0)
 		spread_over = 1;
 	if ((spread_over && spreadr_over) || (infs->maph <= 25 && infs->mapw <= 25))
-		choice = (infs->strategy && !((infs->maph <= 25 && infs->mapw <= 25))) ? kill_enemy(infs, our_moves) :
+		choice = (infs->strategy && !((infs->maph <= 25 && infs->mapw <= 25))) ?
+		kill_enemy(infs, our_moves) :
 		minpt_of_mins(their_moves, our_moves);
 	else
 	{
@@ -88,7 +95,7 @@ static	t_point strategic_play(t_infs *infs, t_points our_moves, t_points their_m
 	return (choice);
 }
 
-void play(t_infs *infs)
+void				play(t_infs *infs)
 {
 	t_points	our_moves;
 	t_points	their_moves;
@@ -103,7 +110,7 @@ void play(t_infs *infs)
 		return ;
 	}
 	choice = strategic_play(infs, our_moves, their_moves);
-	ft_printf("%d %d\n",choice.y, choice.x);
+	ft_printf("%d %d\n", choice.y, choice.x);
 	ft_free_strtab(infs->map);
 	ft_free_strtab(infs->tet);
 	ft_free_all(2, our_moves.vals, their_moves.vals);

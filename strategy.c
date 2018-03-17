@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:52:36 by dsaadia           #+#    #+#             */
-/*   Updated: 2018/03/09 12:41:43 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/17 21:09:54 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ t_point	kill_enemy(t_infs *in, t_points our_moves)
 	return (ret);
 }
 
-t_point to_spread(t_infs *in, t_points our_moves)
+t_point	to_spread(t_infs *in, t_points our_moves)
 {
-	int i;
-	int min;
-	t_point ret;
-	int k;
+	int		i;
+	int		min;
+	t_point	ret;
+	int		k;
 
 	min = 2147483647;
 	ret = our_moves.vals[0];

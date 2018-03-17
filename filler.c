@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:32:41 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/14 17:54:12 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/17 21:35:59 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static void	init_infs(t_infs *infs)
 
 int			main(void)
 {
-	t_infs	infs;
+	t_infs		infs;
 	char		*l;
 
 	init_infs(&infs);
 	read_infos(&infs);
-	while(get_next_line(0, &l) > 0)
+	while (get_next_line(0, &l) > 0)
 	{
 		infs.strategy = !(infs.strategy);
 		read_map_tet(&infs);
