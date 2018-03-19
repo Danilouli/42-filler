@@ -6,7 +6,7 @@
 /*   By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 02:33:30 by schmurz           #+#    #+#             */
-/*   Updated: 2017/11/13 18:29:38 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/19 21:45:41 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	int mod;
-
-	mod = 0;
 	if (n == -2147483648)
 	{
 		ft_putstr_fd("-2", fd);

@@ -6,20 +6,20 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 12:49:02 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/19 10:36:50 by schmurz          ###   ########.fr       */
+/*   Updated: 2018/03/19 21:46:58 by dsaadia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static void safe_exit(char **line)
+static void	safe_exit(char **line)
 {
 	if (*line)
 		ft_strdel(line);
 	exit(EXIT_FAILURE);
 }
 
-static void read_map_h_w(char **line, t_infs *infs)
+static void	read_map_h_w(char **line, t_infs *infs)
 {
 	char *k;
 
@@ -34,7 +34,7 @@ static void read_map_h_w(char **line, t_infs *infs)
 	ft_strdel(&k);
 }
 
-void	read_infos(t_infs *infs)
+void		read_infos(t_infs *infs)
 {
 	char	*line;
 
@@ -56,7 +56,7 @@ void	read_infos(t_infs *infs)
 		exit(EXIT_FAILURE);
 }
 
-void	read_hw_tet(t_infs *infs)
+void		read_hw_tet(t_infs *infs)
 {
 	char	*line;
 	char	*tmp;
@@ -76,7 +76,7 @@ void	read_hw_tet(t_infs *infs)
 	}
 }
 
-void	read_tet(t_infs *infs)
+void		read_tet(t_infs *infs)
 {
 	char	*line;
 	int		i;
