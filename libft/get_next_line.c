@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:04:26 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/13 19:20:18 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/19 08:00:36 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	when_read_over(char **line, char **kp)
 	{
 		if (!(*line = ft_strdup(*kp)))
 			return (-1);
-		**kp = 0;
+		ft_strdel(kp);
 		return (1);
 	}
 	else
@@ -67,7 +67,7 @@ static int	safe_return(int r, char **kp, char **line)
 	int ret;
 
 	ret = when_read_over(line, kp);
-	(r == 0) ? ft_strdel(kp) : kp;
+	(r < 0) ? ft_strdel(kp) : kp;
 	return (ret);
 }
 

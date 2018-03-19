@@ -6,7 +6,7 @@
 /*   By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:31:48 by schmurz           #+#    #+#             */
-/*   Updated: 2018/03/17 21:04:00 by dsaadia          ###   ########.fr       */
+/*   Updated: 2018/03/19 09:05:54 by schmurz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	read_map(t_infs *infs)
 	mapstr = ft_strdup("\0");
 	while (i <= infs->maph && get_next_line(0, &line) > 0)
 	{
-		if (!ft_isdigit(*(line + 4)))
+		if (ft_strlen(line) > 3 && !ft_isdigit(*(line + 4)))
 		{
 			mapstr = ft_strjoindelone(&mapstr, (line + 4));
 			ft_strdel(&line);
