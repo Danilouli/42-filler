@@ -6,7 +6,7 @@
 #    By: schmurz <schmurz@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 16:28:01 by schmurz           #+#    #+#              #
-#    Updated: 2018/03/19 10:38:41 by schmurz          ###   ########.fr        #
+#    Updated: 2018/03/27 13:37:43 by dsaadia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,20 +23,22 @@ space := ${null} ${null}
 LIBDIR = ./libft
 LIBS = -lft
 LIBNAME = libft.a
-INCLUDES = ./includes
+INCLUDES = ./includes/
 EXEC = dsaadia.filler
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 SRCDIR = ./
 SRCFILES = filler.c placer.c reader.c play.c strategy.c dists.c reader2.c \
 						abs.c
+HEADFILES = filler.h
 SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
+HEAD = $(subst ${space}, $(INCLUDES), $(HEADFILES))
 OBJ = $(SRC:.c=.o)
 
 all: $(LIBNAME) $(EXEC)
 		@printf "%b" "$(OK_COLOR)Finished : OK$(NO_COLOR)\n"
 
-$(EXEC): $(OBJ)
+$(EXEC): $(OBJ) $(HEAD)
 						@printf "%b" "$(COM_COLOR)Compiling : $(OBJ_COLOR)$(@)$(NO_COLOR)\n"
 						@$(CC) -o $(EXEC) -L$(LIBDIR) $(LIBS) $(CFLAGS) $(OBJ)
 

@@ -6,7 +6,7 @@
 #    By: dsaadia <dsaadia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 16:37:57 by dsaadia           #+#    #+#              #
-#    Updated: 2018/03/19 09:28:54 by schmurz          ###   ########.fr        #
+#    Updated: 2018/03/27 13:40:31 by dsaadia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,10 @@ space := ${null} ${null}
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+INCLUDES = ./includes/
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES)
 SRCDIR = ./
+HEADFILES = ft_printf.h get_next_line.h libft.h
 SRCFILES = ft_int_tab_cpy.c ft_astrrev.c ft_memccpy.c ft_striteri.c ft_isspacer.c\
 			ft_atoi.c ft_bzero.c ft_create_base.c ft_isalnum.c \
 			ft_isalpha.c ft_isascii.c ft_isdigit.c ft_islower.c ft_isprint.c \
@@ -44,11 +46,12 @@ SRCFILES = ft_int_tab_cpy.c ft_astrrev.c ft_memccpy.c ft_striteri.c ft_isspacer.
 			ft_free_all.c ft_intarr_ctint.c ft_max_nums.c ft_strjoindelone.c \
 			ft_strdelbool.c
 SRC = $(subst ${space}, $(SRCDIR), $(SRCFILES))
+HEAD = $(subst ${space}, $(INCLUDES), $(HEADFILES))
 OBJ = $(SRCFILES:.c=.o)
 
 all:  $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEAD)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
